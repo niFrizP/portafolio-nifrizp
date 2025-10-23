@@ -1,0 +1,57 @@
+name: Build & Deploy (Next + LaTeX CV)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1) Compilar LaTeX a PDF (usa una acción mantenida para TeXLive)
+      - name: Compile LaTeX (CV)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          working_directory: latex-cv
+          latexmk_use_xelatex: true
+          # Si tu clase requiere pdflatex en vez de xelatex, cambia a:
+          # latexmk_use_lualatex: false
+          # latexmk_use_xelatex: false
+
+      # 2) Copiar el PDF generado a /public/cv/ para que el sitio lo sirva
+      - name: Copy CV pdf into public
+        run: |
+          mkdir -p public/cv
+          # latex-action deja el pdf como latex-cv/main.pdf
+          cp latex-cv/main.pdf public/cv/nicolas-friz.pdf
+
+      # 3) Build & export Next.js (estático para GitHub Pages)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build && npm run export
+      - run: touch out/.nojekyll
+
+      # 4) Subir artefacto a Pages
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,136 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Curriculum Nicolás Friz Pereira
+% Adaptado de plantilla DeveloperCV con fuente Helvetica
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[9pt]{developercv}
+\usepackage{fontspec}
+\setmainfont{Raleway}
+
+%----------------------------------------
+% Diseño y Fuentes
+%----------------------------------------
+\usepackage[T1]{fontenc}
+
+% Helvetica para cuerpo
+\usepackage[scaled=0.9]{helvet}
+\renewcommand\familydefault{\sfdefault}
+
+% Fontspec para IBM Plex (solo disponible con XeLaTeX/LuaLaTeX)
+\usepackage{fontspec}
+\setmainfont{IBM Plex Sans}
+\newfontfamily\ibmplex{IBM Plex Sans}[
+  UprightFont    = *-Regular,
+  BoldFont       = *-Bold,
+  ItalicFont     = *-Italic,
+  BoldItalicFont = *-BoldItalic,
+  Scale          = MatchLowercase
+]
+
+% Colores
+\usepackage{xcolor}
+\definecolor{headerbg}{HTML}{2E5F5A}
+\definecolor{headerfg}{HTML}{FFFFFF}
+
+\pagestyle{empty}
+
+\begin{document}
+
+%----------------------------------------
+% Encabezado Centrado
+%----------------------------------------
+\begin{center}
+  \colorbox{headerbg}{%
+    \parbox{0.95\linewidth}{%
+      \vspace{1em}
+      \centering
+      % Nombre en IBM Plex Sans Bold
+      {\ibmplex\Huge\color{headerfg}\textbf{Nicolás Friz Pereira}}\\[4pt]
+      {\ibmplex\large\color{headerfg}Desarrollador de Software}\\[6pt]
+      {\small\color{headerfg}
+        \href{mailto:ni.frizp@gmail.com}{ni.frizp@gmail.com} \quad $|$ \quad
+        Concepción, Biobío, Chile \quad $|$ \quad
+        \href{tel:+56933134466}{+56 9 3313 4466}
+      }
+      \vspace{1em}
+    }
+  }
+  \vspace{0.5cm}
+\end{center}
+
+% Contact Icons
+\begin{center}
+  \begin{tabular}{c@{\hspace{1.5cm}}c@{\hspace{0.5cm}}c}
+    \icon{Linkedin}{12} {\href{https://www.linkedin.com/in/nicolasfrizpereira}{/in/nicolasfrizpereira}} &
+    \icon{Github}{12}{\href{https://github.com/niFrizP}{github.com/niFrizP}} &
+    \icon{Language}{12}{Inglés: A2 (TOEIC 480)}
+  \end{tabular}
+\end{center}
+
+%----------------------------------------
+% Profile
+%----------------------------------------
+\cvsect{Sobre mi}
+
+Mi nombre es \textbf{Nicolás Friz Pereira}, soy desarrollador de software freelance apasionado en la tecnología. Titulado en Ingeniería en Informática por DuocUC, cuento con experiencia en desarrollo de aplicaciones web, aseguramiento de la calidad de software (QA) y optimización de procesos operativos. Me caracterizan el aprendizaje autodidacta, la responsabilidad y el enfoque en la mejora continua, así como la disposición para asumir nuevos retos y adquirir conocimientos a partir de ellos.
+
+%----------------------------------------
+% Experiencia
+%----------------------------------------
+\cvsect{Experiencia}
+\begin{itemize}
+  \item \textbf{2024 -- 2025 | Analista QA (Programa Blue Journey) – | IBM Chile, Santiago.}
+  \\Ejecución de pruebas funcionales y de regresión bajo metodología Scrum. Reporte y documentación de errores. Definición de criterios de aceptación y métricas de calidad.
+
+  \item \textbf{2022 -- 2024 | Desarrollador FullStack y Especialista TI – | TEQMED SpA, Concepción.}
+  \\Desarrollo y mantenimiento de sistemas internos (PHP, MySQL y Bulma CSS). Generación de reportes y dashboards. Gestión de infraestructura tecnológica y soporte técnico.
+
+  \item \textbf{2022 -- 2024 | Líder de Taller de Impresión 3D – | CITT DuocUC, Concepción.}
+  \\Planificación y realización de talleres de diseño e impresión 3D.
+
+  \item \textbf{2019 | Asistente de Apoyo – | ABCDIN, Cauquenes.}
+  \\Apoyo logístico y atención al cliente durante campaña navideña.
+\end{itemize}
+
+%----------------------------------------
+% Educación
+%----------------------------------------
+\cvsect{Educación}
+\begin{itemize}
+  \item \textbf{2020 -- 2025 | Ingeniería en Informática.}
+  \\DuocUC, Concepción, Región del Biobío.
+
+  \item \textbf{2018 -- 2019 | Técnico en Administración Computacional especializado en Armado de Computadoras. }
+  \\Instituto Conosur, Cauquenes, Región del Maule.
+\end{itemize}
+
+%----------------------------------------
+% Habilidades y Certificaciones
+%----------------------------------------
+\cvsect{Habilidades y Certificaciones}
+\begin{minipage}[t]{0.5\textwidth}
+\vspace{3pt}
+\textbf{Habilidades Técnicas}
+\vspace{3pt}
+\begin{itemize}
+  \item \textbf {Lenguajes:} PHP, JavaScript/TypeScript, Python y LaTeX.
+  \item \textbf {Frameworks:} Laravel, Angular, Ionic y React.
+  \item \textbf {Bases de Datos:} MySQL, SQL Server y PL/SQL.
+  \item \textbf {Frontend:} HTML, CSS, Sass, Tailwind CSS y Bulma CSS.
+  \item \textbf {Multimedia:} Photoshop, Illustrator, Lightroom, Sony Vegas Pro, Premiere y DaVinci Resolve.
+  \item \textbf {Hardware y TI:} Ensamblaje de PC, Impresión 3D y Soporte técnico.
+\end{itemize}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+\vspace{3pt}
+\textbf{Certificaciones y Logros}
+\begin{itemize}
+  \item \textbf{2025:} IBM Z Day SE - Seguridad.
+  \item \textbf{2023:} Diseño e Impresión 3D - Full3D \& Creality.
+  \item \textbf{2022:} Principios de Diseño Digital en Adobe Photoshop  - Universidad Tecmilenio (México).
+  \item \textbf{2022:} 1er Lugar, Innova Challenge - Universidad Tecmilenio (México). 
+\end{itemize}
+\end{minipage}
+
+\end{document}
+-
