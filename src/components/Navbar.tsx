@@ -13,6 +13,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import Logo from "@/components/Logo";
+
 
 const links = [
   { href: "/#about", label: "Sobre mí" },
@@ -29,15 +31,8 @@ export function Navbar() {
         {/* Contenedor glass + theme-aware (sin colores fijos) */}
         <div className="mt-4 flex items-center justify-between rounded-2xl glass glass-card px-3 py-2">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/logo.png"             // coloca tu archivo en /public/logo.png
-              alt="NFP Dev & Design"
-              width={140}
-              height={40}
-              className="h-8 w-auto md:h-10"
-              priority
-            />
+          <Link href="/" className="flex items-center gap-2" aria-label="Inicio">
+            <Logo className="h-8 w-auto fill-zinc-900 dark:fill-white" />
           </Link>
 
           {/* Links desktop */}
@@ -51,9 +46,8 @@ export function Navbar() {
             ))}
           </ul>
 
-          {/* Acciones */}
+          {/* Links */}
           <div className="flex items-center gap-2">
-            {/* Botones sociales (desktop) */}
             <div className="hidden md:flex items-center gap-2">
               <Button asChild variant="outline" className="bg-transparent">
                 <a
@@ -73,11 +67,6 @@ export function Navbar() {
                   rel="noreferrer noopener"
                 >
                   <Linkedin size={18} />
-                </a>
-              </Button>
-              <Button asChild variant="outline" className="bg-transparent">
-                <a aria-label="Email" href="mailto:c11nfp@gmail.com">
-                  <Mail size={18} />
                 </a>
               </Button>
             </div>

@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { Project } from "@/data/projects";
+import InteractiveScreenshot from "@/components/InteractiveScreenshot";
 
 type Props = { project: Project };
 
@@ -21,16 +22,12 @@ export default function ProjectCard({ project }: Props) {
       </CardHeader>
 
       {project.image && (
-        <div className="relative mx-4 h-40 overflow-hidden rounded-xl border border-white/10">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition duration-300 group-hover:scale-[1.02]"
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            priority={false}
-          />
-        </div>
+        <InteractiveScreenshot
+          src={project.image}
+          alt={project.title}
+          height={230}
+          radius="rounded-xl"
+        />
       )}
 
       <CardContent className="mt-4">
@@ -48,6 +45,16 @@ export default function ProjectCard({ project }: Props) {
       <Separator className="mx-4 my-2 opacity-50" />
 
       <CardFooter className="flex gap-2">
+        {project.website && (
+          <Link
+            href={project.website}
+            target="_blank"
+            className="inline-flex items-center gap-1 rounded-lg border border-white/10 px-2 py-1 text-sm hover:bg-white/5"
+            aria-label={`Sitio web de ${project.title}`}
+          >
+            <ExternalLink size={16} /> Sitio Web
+          </Link>
+        )}
         {project.repo && (
           <Link
             href={project.repo}
@@ -69,6 +76,6 @@ export default function ProjectCard({ project }: Props) {
           </Link>
         )}
       </CardFooter>
-    </Card>
+    </Card >
   );
 }
