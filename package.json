@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next build && next export",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint",
+    "preview": "npx serve out -1 4173"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

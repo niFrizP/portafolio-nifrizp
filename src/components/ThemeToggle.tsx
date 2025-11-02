@@ -20,7 +20,8 @@ export function ThemeToggle() {
       variant="outline"
       onClick={toggle}
       aria-label="Cambiar tema"
-      className="border-white/10 bg-transparent hover:bg-white/5 inline-flex items-center justify-center"
+      className="bg-transparent"
+      variant="outline"
       // ancho/alto fijos para evitar salto de layout
       style={{ width: 36, height: 36, padding: 0 }}
     >

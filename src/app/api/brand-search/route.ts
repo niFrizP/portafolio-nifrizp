@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 60 * 60 * 24; // cache 24h (ajusta a gusto)
+//export const revalidate = 60 * 60 * 24; // cache 24h (ajusta a gusto)
 
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);

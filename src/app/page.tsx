@@ -1,31 +1,32 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import ProjectsSection from "@/components/ProjectsSection";
-import { Mail, FileText, ChevronRight, Linkedin, Github } from "lucide-react";
+import { Mail, ChevronRight, Linkedin, Github } from "lucide-react";
 import CompanyLogo from "@/components/CompanyLogo";
 import HeroAnimated from "@/components/HeroAnimated";
-import LightMotionBackground from "@/components/LightMotionBackground";
 
 export default function Page() {
   return (
-    <main className="min-h-screen relative bg-landing text-foreground">
 
-      <LightMotionBackground />
+    <main className="min-h-screen relative text-foreground">
+      <link rel="preload" as="image" href="/bg-base.jpg" />
 
       {/* Hero */}
       <HeroAnimated />
 
-
       {/* About */}
       <section id="about" className="mx-auto max-w-6xl px-4 py-12 mt-20 md:scroll-mt-10">
-        <h2 className="text-2xl font-semibold tracking-tight">Sobre mí</h2>
+
+        <h2 className="text-2xl font-semibold tracking-tight">¿Quién soy?</h2>
 
         <div className="mt-4 grid gap-8 md:grid-cols-12 md:items-center">
           {/* Cuadro/imagen a la izquierda */}
           <div className="md:col-span-5">
-            <div className="relative mx-auto h-64 w-64 md:h-80 md:w-80 overflow-hidden glass-card p-2">
-              <div className="absolute inset-2 rounded-2xl bg-gradient-to-br from-white/10 to-transparent grid place-items-center">
-                <span className="text-sm text-muted-foreground">
+            <div className="relative mx-auto h-64 w-64 md:h-80 md:w-80 overflow-hidden glass-card p-2 bg-blurred-card rounded-2xl border theme-border backdrop-blur-3xl">
+              <div className="absolute inset-2 rounded-2xl bg-linear-to-br from-white/10 to-transparent grid place-items-center">
+                <span className="text-sm theme-text">
                   <Image src="thumbs/niko-IA.jpg" alt="Nicolás Friz Pereira" fill className="object-cover rounded-2xl" />
                 </span>
               </div>
@@ -33,39 +34,41 @@ export default function Page() {
           </div>
 
           {/* Texto a la derecha */}
-          <div className="md:col-span-7">
-            <p className="text-zinc-400">
+          <div className="md:col-span-7 bg-blurred-card p-6 rounded-2xl border theme-border backdrop-blur-3xl ">
+            <p className="theme-text">
               Soy ingeniero informático con una sólida trayectoria en el desarrollo de soluciones digitales modernas y optimizadas.
               Mi enfoque se centra en <strong>TypeScript</strong>, <strong>Next.js</strong>, <strong>Tailwind CSS</strong> y <strong>Laravel</strong>, donde aplico principios de diseño, arquitectura estructurada y metodologías ágiles.
             </p>
-            <p className="mt-3 text-zinc-400">
-              También cuento con experiencia en la integración en CMS como WordPress y APIs personalizadas para complementar soluciones. Me apasiona construir productos de principio a fin,
+            <p className="mt-3 theme-text">
+              También cuento con experiencia en la integración de CMS como WordPress y APIs personalizadas para complementar soluciones. Me apasiona construir productos de principio a fin,
               abarcando desde el levantamiento de requisitos hasta el despliegue.
               Me motiva trabajar y aportar en proyectos en equipo donde el diseño y la ingeniería se complementan.
             </p>
 
             {/* Stack breve visible */}
-            <div className="mt-4 flex flex-wrap gap-2 text-xs text-zinc-500 dark:text-zinc-400">
-              <span className="border border-white/10 rounded-full px-3 py-1">TypeScript</span>
-              <span className="border border-white/10 rounded-full px-3 py-1">Next.js</span>
-              <span className="border border-white/10 rounded-full px-3 py-1">React</span>
-              <span className="border border-white/10 rounded-full px-3 py-1">Tailwind CSS</span>
-              <span className="border border-white/10 rounded-full px-3 py-1">Laravel</span>
-              <span className="border border-white/10 rounded-full px-3 py-1">WordPress</span>
-              <span className="border border-white/10 rounded-full px-3 py-1">PHP</span>
+            <div className="mt-4 flex flex-wrap gap-2 text-xs">
+              <span className="border theme-border rounded-full px-3 py-1 theme-text">TypeScript</span>
+              <span className="border theme-border rounded-full px-3 py-1 theme-text">Next.js</span>
+              <span className="border theme-border rounded-full px-3 py-1 theme-text">Tailwind CSS</span>
+              <span className="border theme-border rounded-full px-3 py-1 theme-text">Laravel</span>
+              <span className="border theme-border rounded-full px-3 py-1 theme-text">WordPress</span>
+              <span className="border theme-border rounded-full px-3 py-1 theme-text">PHP</span>
+              <span className="border theme-border rounded-full px-3 py-1 theme-text">FastAPI</span>
+              <span className="border theme-border rounded-full px-3 py-1 theme-text">MySQL</span>
+              <span className="border theme-border rounded-full px-3 py-1 theme-text">PL/SQL</span>
             </div>
 
             <div className="mt-6 flex flex-wrap gap-2">
               <Link
                 href="mailto:ni.frizp@gmail.com"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-xl border theme-border bg-white/5 px-4 py-2 hover:bg-white/10"
               >
                 <Mail size={16} />
                 Contáctame
               </Link>
               <Link
                 href="#projects"
-                className="group inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2 hover:bg-white/5"
+                className="group inline-flex items-center gap-2 rounded-xl border theme-border px-4 py-2 hover:bg-white/5"
               >
                 Ver proyectos
                 <ChevronRight className="transition-transform group-hover:translate-x-0.5" size={16} />
@@ -85,71 +88,71 @@ export default function Page() {
 
         <div className="grid gap-6">
           {/* TEQMED */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-6 backdrop-blur-xl border theme-border bg-white/30 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
                 <CompanyLogo company="TEQMED" domain="teqmed.cl" size={40} />
-                <h3 className="text-lg font-medium">Desarrollador Web y Soporte TI</h3>
-                <p className="text-sm text-muted-foreground">TEQMED · Jornada parcial</p>
-                <p className="text-sm text-muted-foreground">Concepción, Bio Bio, Chile · Actualidad</p>
+                <h3 className="text-lg font-medium theme-text">Desarrollador Web y Soporte TI</h3>
+                <p className="text-sm theme-text">TEQMED · Jornada parcial</p>
+                <p className="text-sm theme-text">Concepción, Bio Bio, Chile · Actualidad</p>
               </div>
               <strong>
-                <p className="text-sm text-muted-foreground mt-2 md:mt-0">Oct 2025 – Actualidad · 1 mes</p>
+                <p className="text-sm theme-text mt-2 md:mt-0">Oct 2025 – Actualidad · 1 mes</p>
               </strong>
             </div>
-            <p className="mt-3 text-zinc-400">
+            <p className="mt-3 theme-text">
               Desarrollo de aplicaciones internas y soporte TI. Enfoque en programación, ingeniería y optimización de sistemas para el sector médico.
             </p>
           </div>
 
           {/* IBM */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-6 backdrop-blur-xl border theme-border bg-white/30 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
                 <CompanyLogo company="IBM" domain="ibm.com" size={40} />
-                <h3 className="text-lg font-medium">Blue Journey Program Internship</h3>
-                <p className="text-sm text-muted-foreground">IBM · Contrato de prácticas</p>
-                <p className="text-sm text-muted-foreground">Región Metropolitana de Santiago, Chile · Híbrido</p>
+                <h3 className="text-lg font-medium theme-text">Blue Journey Program Internship</h3>
+                <p className="text-sm theme-text">IBM · Contrato de prácticas</p>
+                <p className="text-sm theme-text">Región Metropolitana de Santiago, Chile · Híbrido</p>
               </div>
-              <strong><p className="text-sm text-muted-foreground mt-2 md:mt-0">Ago 2024 – Feb 2025 · 7 meses</p></strong>
+              <strong><p className="text-sm theme-text mt-2 md:mt-0">Ago 2024 – Feb 2025 · 7 meses</p></strong>
             </div>
-            <p className="mt-3 text-zinc-400">
+            <p className="mt-3 theme-text">
               Participación en el programa de formación de IBM centrado en desarrollo de software,
               tecnologías cloud y buenas prácticas de ingeniería.
             </p>
           </div>
 
           {/* CITT Duoc UC */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-6 backdrop-blur-xl border theme-border bg-white/30 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
                 <CompanyLogo company="CITT Duoc UC" domain="duoc.cl" size={40} />
-                <h3 className="text-lg font-medium">Líder Track Impresión 3D</h3>
-                <p className="text-sm text-muted-foreground">CITT Duoc UC · Jornada parcial</p>
-                <p className="text-sm text-muted-foreground">Concepción, Bio Bio, Chile · Presencial</p>
+                <h3 className="text-lg font-medium theme-text">Líder Track Impresión 3D</h3>
+                <p className="text-sm theme-text">CITT Duoc UC · Jornada parcial</p>
+                <p className="text-sm theme-text">Concepción, Bio Bio, Chile · Presencial</p>
               </div>
               <strong>
-                <p className="text-sm text-muted-foreground mt-2 md:mt-0">Abr 2022 – Ago 2024 · 2 años 5 meses</p></strong>
+                <p className="text-sm theme-text mt-2 md:mt-0">Abr 2022 – Ago 2024 · 2 años 5 meses</p></strong>
             </div>
-            <p className="mt-3 text-zinc-400">
+            <p className="mt-3 theme-text">
               Coordinación del área de impresión y modelado 3D. Creación de prototipos y liderazgo de proyectos estudiantiles y académicos.
             </p>
           </div>
 
           {/* TEQMED */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-6 backdrop-blur-xl border theme-border bg-white/30 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
                 <CompanyLogo company="TEQMED" domain="teqmed.cl" size={40} />
-                <h3 className="text-lg font-medium">Especialista de asistencia TI / Desarrollador Web Fullstack</h3>
-                <p className="text-sm text-muted-foreground">TEQMED · Jornada parcial</p>
-                <p className="text-sm text-muted-foreground">Concepción, Bio Bio, Chile · Presencial</p>
+                <h3 className="text-lg font-medium theme-text">Especialista de asistencia TI / Desarrollador Web Fullstack</h3>
+                <p className="text-sm theme-text">TEQMED · Jornada parcial</p>
+                <p className="text-sm theme-text">Concepción, Bio Bio, Chile · Presencial</p>
               </div>
               <strong>
-                <p className="text-sm text-muted-foreground mt-2 md:mt-0">Ago 2022 – Jul 2024 · 2 años</p>
+                <p className="text-sm theme-text mt-2 md:mt-0">Ago 2022 – Jul 2024 · 2 años</p>
               </strong>
             </div>
-            <p className="mt-3 text-zinc-400">
+            <p className="mt-3 theme-text">
               Desarrollo de sistemas web fullstack, mantenimiento de infraestructura y soporte técnico.
               Enfoque en optimización de procesos internos y automatización.
             </p>
@@ -160,7 +163,7 @@ export default function Page() {
       {/* CV */}
       <section id="cv" className="mx-auto max-w-6xl px-4 py-20">
         <h2 className="text-2xl font-semibold tracking-tight mb-4">Currículum Vitae</h2>
-        <p className="text-sm text-muted-foreground max-w-prose">
+        <p className="text-sm theme-text max-w-prose">
           Aquí puedes visualizar mi CV actualizado directamente en esta página o descargarlo en PDF.
         </p>
 
@@ -192,7 +195,7 @@ export default function Page() {
             download
             className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-white/5"
           >
-            📄 Descargar PDF
+            Descargar PDF
           </a>
         </div>
       </section>
@@ -201,15 +204,16 @@ export default function Page() {
       {/* Contact */}
       <section id="contact" className="mx-auto max-w-6xl px-4 py-20">
         <div
-          className=" glass-card
-    rounded-2xl border p-8 shadow-lg backdrop-blur-xl transition-all duration-300
-    bg-white/70 dark:bg-gradient-to-br dark:from-zinc-900/80 dark:via-zinc-800/70 dark:to-zinc-900/80
-    border-zinc-200/60 dark:border-white/10
+          className="
+    glass-card rounded-2xl border p-8 shadow-lg backdrop-blur-xl transition-all duration-300
+    bg-white/40 hover:bg-white/50
+    dark:bg-zinc-900/70 dark:hover:bg-zinc-900/80
   "
         >
+
           <h2 className="text-2xl font-semibold tracking-tight mb-2 text-zinc-900 dark:text-white">Contactame</h2>
 
-          <p className="max-w-prose text-white dark:text-zinc-200">
+          <p className="max-w-prose text-white">
             Para colaborar, conversar de oportunidades o pedir una demo de mis proyectos.
           </p>
 
@@ -217,7 +221,7 @@ export default function Page() {
             <a
               href="mailto:ni.frizp@gmail.com"
               className="
-        inline-flex items-center gap-2 rounded-xl border
+        inline-flex items-center gap-2 rounded-xl border theme-border
         border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20
         text-emerald-700 dark:text-emerald-500
         px-4 py-2 font-medium transition-all duration-200
@@ -229,10 +233,9 @@ export default function Page() {
             <a
               href="#"
               className="
-        inline-flex items-center gap-2 rounded-xl border
-        border-zinc-500/60 bg-white/30 hover:bg-zinc-100
+        inline-flex items-center gap-2 rounded-xl border theme-border bg-white/30 hover:bg-zinc-100
         text-zinc-700 hover:text-zinc-900
-        dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200 dark:hover:text-white
+        dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200
         px-4 py-2 font-medium transition-all duration-200
       "
             >
@@ -242,10 +245,9 @@ export default function Page() {
             <a
               href="#"
               className="
-        inline-flex items-center gap-2 rounded-xl border
-        border-zinc-500/60 bg-white/30 hover:bg-zinc-100
+        inline-flex items-center gap-2 rounded-xl border theme-border bg-white/30 hover:bg-zinc-100
         text-zinc-700 hover:text-zinc-900
-        dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200 dark:hover:text-white
+        dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200
         px-4 py-2 font-medium transition-all duration-200
       "
             >
@@ -254,6 +256,13 @@ export default function Page() {
           </div>
         </div>
       </section>
-    </main >
+      <footer className="bg-white dark:bg-zinc-900">
+        <div className="mx-auto max-w-6xl px-4 py-6">
+          <p className="text-sm text-white/60">
+            © {new Date().getFullYear()} Nicolás Friz. Todos los derechos reservados. ©JohnHathway.
+          </p>
+        </div>
+      </footer>
+    </main>
   );
 }

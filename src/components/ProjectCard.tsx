@@ -16,7 +16,8 @@ export default function ProjectCard({ project }: Props) {
     <Card className="group overflow-hidden border-white/10 bg-brand-glass/30 backdrop-blur-xl transition hover:translate-y-[-2px] hover:bg-brand-glass/40">
       <CardHeader className="space-y-1">
         <CardTitle className="text-base md:text-lg">{project.title}</CardTitle>
-        <p className="text-xs text-muted-foreground">
+        {/* año proyectos */}
+        <p className="text-xs theme-text">
           {project.year ?? ""}
         </p>
       </CardHeader>
@@ -31,7 +32,8 @@ export default function ProjectCard({ project }: Props) {
       )}
 
       <CardContent className="mt-4">
-        <p className="text-sm text-muted-foreground">{project.summary}</p>
+        {/* Descripción */}
+        <p className="text-sm theme-text">{project.summary}</p>
 
         <div className="mt-3 flex flex-wrap gap-2">
           {project.tags.map((t) => (
@@ -42,7 +44,7 @@ export default function ProjectCard({ project }: Props) {
         </div>
       </CardContent>
 
-      <Separator className="mx-4 my-2 opacity-50" />
+      <Separator className="mx-4 my-1.5 opacity-80" />
 
       <CardFooter className="flex gap-2">
         {project.website && (

@@ -87,17 +87,9 @@ export function Navbar() {
                 side="right"
                 className="glass glass-card w-72 text-foreground"
               >
-                <SheetHeader>
-                  <SheetTitle className="flex items-center gap-2">
-                    <Image
-                      src="/logo.png"
-                      alt="NFP Dev & Design"
-                      width={120}
-                      height={30}
-                      className="h-8 w-auto"
-                    />
-                  </SheetTitle>
-                </SheetHeader>
+                <Link href="/" className="flex items-center gap-2" aria-label="Inicio">
+                  <Logo className="h-8 w-auto fill-zinc-900 dark:fill-white" />
+                </Link>
 
                 <nav className="mt-6 grid gap-2 text-sm">
                   {links.map((l) => (

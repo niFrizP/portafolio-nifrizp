@@ -32,8 +32,18 @@ html {
   }
 }
 
-/* ===== Variables (HSL) ===== */
+/* ===== Variables (HSL / hex para compatibilidad) ===== */
 :root {
+  --status-text: 158 60% 22%;
+  --status-dot: 158 60% 44%;
+
+  /* Color principal de texto para page (light) -> zinc-800 */
+  --page-text: #27272a;
+  /* zinc-800 */
+  /* Borde para tema claro */
+  --page-border: #e4e4e7;
+  /* approx zinc-200 */
+
   --landing-start: 0 0% 96%;
   --background: 0 0% 100%;
   --foreground: 240 10% 3.9%;
@@ -55,9 +65,25 @@ html {
   --input: 240 5.9% 90%;
   --ring: 240 5% 64.9%;
   --radius: 0.5rem;
+
+  /* Velo por defecto (tema claro): sólido translúcido blanco/crema */
+  --bg-veil-color: rgba(255, 255, 255, 0.40);
+  --bg-veil-transition: 240ms ease;
+  --bg-veil-blend: normal;
 }
 
+/* Tema dark: overrides */
 .dark {
+  --status-text: 158 60% 72%;
+  --status-dot: 158 60% 60%;
+
+  /* Color principal de texto para page (dark) -> zinc-300 */
+  --page-text: #d4d4d8;
+  /* zinc-300 */
+  /* Borde para tema oscuro */
+  --page-border: #d4d4d8;
+  /* approx zinc-300 */
+
   --landing-start: 0 0% 10%;
   --background: 240 10% 3.9%;
   --foreground: 0 0% 98%;
@@ -78,11 +104,12 @@ html {
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
   --ring: 240 4.9% 83.9%;
+
+  --bg-veil-color: rgba(6, 10, 21, 0.64);
+  --bg-veil-blend: normal;
 }
 
-/* ===== Theme tokens (Tailwind v4) =====
-   Esto habilita utilidades como bg-background, border-border, outline-ring, etc.
-*/
+/* ===== Theme tokens (Tailwind v4) ===== */
 @theme {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -120,6 +147,7 @@ html {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -129,16 +157,58 @@ html {
   .btn {
     @apply inline-flex items-center gap-2 rounded-xl px-4 py-2 transition shadow-sm;
   }
+
   .btn-secondary {
     @apply border border-zinc-300/70 bg-white/70 text-zinc-900 hover:bg-white/90 hover:text-zinc-900 dark:border-white/10 dark:bg-white/5 dark:text-zinc-200 dark:hover:bg-white/10 dark:hover:text-white;
   }
+
   .btn-ghost {
     @apply border border-zinc-300/70 bg-transparent text-zinc-800 hover:bg-zinc-100 hover:text-zinc-900 dark:border-white/10 dark:bg-transparent dark:text-zinc-200 dark:hover:bg-white/10 dark:hover:text-white;
   }
 }
 
+#bg {
+  opacity: 0.9;
+  background-attachment: fixed;
+}
+
 
 @layer utilities {
+
+  /* Status badge: controla texto, borde y fondo a través de variables */
+  .status-badge {
+    color: hsl(var(--status-text)) !important;
+    border-color: hsl(var(--status-text) / 0.30) !important;
+    /* opcional, usa status-text tint para borde */
+    background-color: hsl(var(--status-text) / 0.06);
+    /* sutil fondo */
+  }
+
+  .status-dot {
+    background-color: hsl(var(--status-dot)) !important;
+  }
+
+  /* Clase reutilizable para aplicar el color principal de texto de la page.
+     Usa la variable --page-text que cambia en :root vs .dark. */
+  .theme-text {
+    color: var(--page-text) !important;
+  }
+
+  /* Clase reutilizable para bordes que respetan tema */
+  .theme-border {
+    border-color: var(--page-border) !important;
+  }
+
+  /* texto "muted" respetando tema (usa --color-muted-foreground definido via @theme) */
+  .muted-text {
+    color: var(--color-muted-foreground);
+  }
+
+  /* variante un poco más sutil (opcional) */
+  .muted-text.subtle {
+    color: var(--color-muted-foreground);
+    color: hsl(var(--muted-foreground) / 0.9);
+  }
 
   /* Fondo de la landing que respeta el tema */
   .bg-landing {
@@ -159,7 +229,6 @@ html {
 
   .dark .glass {
     background-color: rgba(56, 52, 52, 0.40);
-    /* tu #383434/40 en dark */
   }
 
   /* Borde y sombra suaves para cards glass */
@@ -167,5 +236,13 @@ html {
     @apply rounded-2xl border shadow-lg ring-1;
     border-color: hsl(var(--border));
     --tw-ring-color: rgba(0, 0, 0, 0.05);
+  }
+
+  /* Velo traslúcido sobre la imagen de fondo. */
+  .bg-veil {
+    background-color: var(--bg-veil-color);
+    mix-blend-mode: var(--bg-veil-blend);
+    transition: background-color var(--bg-veil-transition), mix-blend-mode var(--bg-veil-transition);
+    pointer-events: none;
   }
 }

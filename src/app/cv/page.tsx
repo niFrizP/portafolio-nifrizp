@@ -5,7 +5,7 @@ export const metadata: Metadata = {
 };
 
 export default function CVPage() {
-    const pdf = "/cv/nicolas-friz.pdf";
+    const pdf = "cv/nicolas-friz.pdf";
     return (
         <main className="min-h-screen">
             <object data={pdf} type="application/pdf" className="w-full h-screen">
