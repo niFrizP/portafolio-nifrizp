@@ -49,13 +49,23 @@ export default function LightMotionBackground() {
         // listen to OS color scheme changes
         const mql = window.matchMedia?.("(prefers-color-scheme: dark)");
         const onPref = () => apply();
-        if (mql?.addEventListener) mql.addEventListener("change", onPref as EventListener);
-        else if (mql?.addListener) (mql as any).addListener(onPref);
+        type MediaQueryListWithDeprecated = MediaQueryList & {
+            addListener?: (listener: () => void) => void;
+            removeListener?: (listener: () => void) => void;
+        };
+        if (mql?.addEventListener) {
+            mql.addEventListener("change", onPref as EventListener);
+        } else if (mql && 'addListener' in mql && typeof (mql as MediaQueryListWithDeprecated).addListener === 'function') {
+            (mql as MediaQueryListWithDeprecated).addListener?.(onPref);
+        }
 
         return () => {
             mo.disconnect();
-            if (mql?.removeEventListener) mql.removeEventListener("change", onPref as EventListener);
-            else if (mql?.removeListener) (mql as any).removeListener(onPref);
+            if (mql?.removeEventListener) {
+                mql.removeEventListener("change", onPref as EventListener);
+            } else if (mql && 'removeListener' in mql && typeof (mql as MediaQueryListWithDeprecated).removeListener === 'function') {
+                (mql as MediaQueryListWithDeprecated).removeListener?.(onPref);
+            }
         };
     }, []);
 

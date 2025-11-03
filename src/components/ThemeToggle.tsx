@@ -21,7 +21,6 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label="Cambiar tema"
       className="bg-transparent"
-      variant="outline"
       // ancho/alto fijos para evitar salto de layout
       style={{ width: 36, height: 36, padding: 0 }}
     >
