@@ -9,12 +9,12 @@ import { icons } from "lucide-react";
 export const metadata: Metadata = {
   metadataBase: new URL("https://nifrizp.github.io"),
   title: "niFrizP - Portafolio",
-  description: "Ingeniero Informatico",
+  description: "Ingeniero Informático",
   openGraph: {
     type: "website",
     url: "/",
     title: "niFrizP - Portafolio",
-    description: "Ingeniero Informatico",
+    description: "Ingeniero Informático",
     images: [
       {
         url: "/og.png",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "niFrizP - Portafolio",
-    description: "Ingeniero Informatico",
+    description: "Ingeniero Informático",
     images: ["/og.png"],
   },
   icons: {
