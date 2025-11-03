@@ -1,25 +1,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Curriculum Nicolás Friz Pereira
-% Adaptado de plantilla DeveloperCV con IBM Plex Sans
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[9pt]{developercv}
 
-% Usamos XeLaTeX/LuaLaTeX: fontspec para fuentes modernas
+% XeLaTeX/LuaLaTeX: fontspec para fuentes modernas
 \usepackage{fontspec}
 
-% Definimos IBM Plex Sans como fuente principal (se instala en el workflow)
-\newfontfamily\ibmplex{IBM Plex Sans}[
-  UprightFont    = *-Regular,
+% Usar DejaVu Sans (presente en runners Ubuntu / en texlive images)
+\setmainfont{DejaVu Sans}
+\newfontfamily\dejavusans{DejaVu Sans}[
+  UprightFont    = *-Book,
   BoldFont       = *-Bold,
-  ItalicFont     = *-Italic,
-  BoldItalicFont = *-BoldItalic,
+  ItalicFont     = *-Oblique,
+  BoldItalicFont = *-BoldOblique,
   Scale          = MatchLowercase,
 ]
 
-% Hacemos que la familia por defecto sea la fuente sans definida
+% Hacemos que la familia por defecto sea sans
 \renewcommand\familydefault{\sfdefault}
-\setmainfont{IBM Plex Sans}
 
 % Codificación y colores
 \usepackage[T1]{fontenc}
@@ -39,9 +38,9 @@
     \parbox{0.95\linewidth}{%
       \vspace{1em}
       \centering
-      % Nombre en IBM Plex Sans Bold
-      {\ibmplex\Huge\color{headerfg}\textbf{Nicolás Friz Pereira}}\\[4pt]
-      {\ibmplex\large\color{headerfg}\textbf{Ingeniero Informático}}\\[1pt]
+      % Nombre en DejaVu Sans Bold
+      {\dejavusans\Huge\color{headerfg}\textbf{Nicolás Friz Pereira}}\\[4pt]
+      {\dejavusans\large\color{headerfg}\textbf{Ingeniero Informático}}\\[1pt]
       {\small\color{headerfg}
         \href{mailto:ni.frizp@gmail.com}{ni.frizp@gmail.com} \quad $|$ \quad
         Cauquenes, Maule, Chile \quad $|$ \quad
