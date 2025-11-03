@@ -19,10 +19,12 @@ jobs:
       # Instalar IBM Plex Sans para que XeLaTeX encuentre BoldItalic
       - name: Install IBM Plex Sans font
         run: |
-          wget https://github.com/IBM/plex/releases/download/v6.4.2/TrueType.zip -O TrueType.zip
-          unzip TrueType.zip -d ibmplex
+          # descargar el ZIP desde la release (usa -L para seguir redirecciones)
+          curl -L -o sources.zip "https://github.com/IBM/plex/releases/download/%40ibm%2Fplex-sans-jp%403.0.0/sources.zip"
+          unzip -q sources.zip -d ibmplex
           mkdir -p ~/.local/share/fonts
-          cp ibmplex/TrueType/IBM-Plex-Sans/*.ttf ~/.local/share/fonts/
+          # copiar todos los .ttf encontrados al directorio de fuentes del usuario
+          find ibmplex -type f -iname "*.ttf" -exec cp {} ~/.local/share/fonts/ \;
           fc-cache -fv
 
       # 1) Compilar LaTeX a PDF (usa una acción mantenida para TeXLive)
