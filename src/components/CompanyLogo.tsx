@@ -80,6 +80,7 @@ export default function CompanyLogo({
       className={className}
       onError={() => setFailed(true)}
       referrerPolicy="no-referrer"
+      crossOrigin="anonymous"
     />
   );
 }

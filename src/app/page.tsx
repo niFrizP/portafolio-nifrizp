@@ -6,6 +6,27 @@ import ProjectsSection from "@/components/ProjectsSection";
 import { Mail, ChevronRight, Linkedin, Github } from "lucide-react";
 import CompanyLogo from "@/components/CompanyLogo";
 import HeroAnimated from "@/components/HeroAnimated";
+const PK = process.env.NEXT_PUBLIC_LOGO_DEV_PK;
+
+function BrandLogo({ company, domain }: { company: string; domain: string }) {
+  const src = PK
+    ? `https://img.logo.dev/${domain}?token=${PK}&retina=true`
+    : `https://img.logo.dev/${domain}`;
+
+  return (
+    <div className="flex items-center gap-2 rounded-lg">
+      <Image
+        src={src}
+        alt={`${company} logo`}
+        width={40}
+        height={40}
+        className="rounded-sm"
+        unoptimized
+      />
+    </div>
+  );
+}
+
 
 export default function Page() {
   return (
@@ -91,7 +112,7 @@ export default function Page() {
           <div className="glass-card p-6 backdrop-blur-xl border theme-border bg-white/30 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
-                <CompanyLogo company="TEQMED" domain="teqmed.cl" size={40} />
+                <BrandLogo company="TEQMED" domain="teqmed.cl" />
                 <h3 className="text-lg font-medium theme-text">Desarrollador Web y Soporte TI</h3>
                 <p className="text-sm theme-text">TEQMED · Jornada parcial</p>
                 <p className="text-sm theme-text">Concepción, Bio Bio, Chile · Actualidad</p>
@@ -109,7 +130,7 @@ export default function Page() {
           <div className="glass-card p-6 backdrop-blur-xl border theme-border bg-white/30 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
-                <CompanyLogo company="IBM" domain="ibm.com" size={40} />
+                <BrandLogo company="IBM" domain="ibm.com" />
                 <h3 className="text-lg font-medium theme-text">Blue Journey Program Internship</h3>
                 <p className="text-sm theme-text">IBM · Contrato de prácticas</p>
                 <p className="text-sm theme-text">Región Metropolitana de Santiago, Chile · Híbrido</p>
@@ -126,7 +147,7 @@ export default function Page() {
           <div className="glass-card p-6 backdrop-blur-xl border theme-border bg-white/30 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
-                <CompanyLogo company="CITT Duoc UC" domain="duoc.cl" size={40} />
+                <BrandLogo company="CITT Duoc UC" domain="duoc.cl" />
                 <h3 className="text-lg font-medium theme-text">Líder Track Impresión 3D</h3>
                 <p className="text-sm theme-text">CITT Duoc UC · Jornada parcial</p>
                 <p className="text-sm theme-text">Concepción, Bio Bio, Chile · Presencial</p>
@@ -143,7 +164,7 @@ export default function Page() {
           <div className="glass-card p-6 backdrop-blur-xl border theme-border bg-white/30 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 dark:bg-white/5 dark:hover:bg-white/10 dark:text-zinc-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
-                <CompanyLogo company="TEQMED" domain="teqmed.cl" size={40} />
+                <BrandLogo company="TEQMED" domain="teqmed.cl" />
                 <h3 className="text-lg font-medium theme-text">Especialista de asistencia TI / Desarrollador Web Fullstack</h3>
                 <p className="text-sm theme-text">TEQMED · Jornada parcial</p>
                 <p className="text-sm theme-text">Concepción, Bio Bio, Chile · Presencial</p>
@@ -164,9 +185,8 @@ export default function Page() {
       <section id="cv" className="mx-auto max-w-6xl px-4 py-20">
         <h2 className="text-2xl font-semibold tracking-tight mb-4">Currículum Vitae</h2>
         <p className="text-sm theme-text max-w-prose">
-          Aquí puedes visualizar mi CV actualizado directamente en esta página o descargarlo en PDF.
+          Aquí puedes visualizar mi CV o descargarlo en PDF.
         </p>
-
         {/* Viewer embebido (mismo PDF que descargas) */}
         <div className="mt-6 rounded-xl border overflow-hidden shadow-xl glass-card">
           <object
@@ -191,9 +211,9 @@ export default function Page() {
           <a
             href="/cv/CV_Nicolás_Friz.pdf"
             download
-            className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-white/5"
+            className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 bg-red-600 hover:bg-red-500 text-white m-6"
           >
-            Descargar PDF
+            Descargar CV
           </a>
         </div>
       </section>

@@ -4,18 +4,24 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
-
+#-- Permissions for GitHub Pages ---
 permissions:
   contents: read
   pages: write
   id-token: write
+#-- Concurrency to avoid multiple deployments at the same time ---
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
+#-- Build Job ---
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
       - name: Compile LaTeX (CV)
         uses: xu-cheng/latex-action@v3
         with:
@@ -28,27 +34,37 @@ jobs:
           mkdir -p public/cv
           cp latex-cv/main.pdf public/cv/nicolas-friz.pdf
 
-      - uses: actions/setup-node@v4
+      # --- Node / Next.js ---
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install deps and build Next
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build Next (static export)
         env:
-          NEXT_PUBLIC_LOGO_DEV_TOKEN: ${{ secrets.LOGO_DEV_TOKEN }} 
+          NEXT_PUBLIC_LOGO_DEV_PK: ${{ secrets.LOGO_DEV_TOKEN }}
+        run: npm run build
+
+      - name: Verify export output
         run: |
-          npm ci
-          npm run build
-      - run: |
-          test -d out || echo "Warning: 'out' directory not found after build"
-      - run: touch out/.nojekyll
-      - uses: actions/upload-pages-artifact@v3
+          test -d out || (echo "ERROR: 'out' directory not found after build" && exit 1)
+          touch out/.nojekyll
+          ls -la out
+
+      - name: Upload artifact to Pages
+        uses: actions/upload-pages-artifact@v3
         with:
           path: out
-
   deploy:
     needs: build
     environment:
       name: github-pages
     runs-on: ubuntu-latest
     steps:
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4

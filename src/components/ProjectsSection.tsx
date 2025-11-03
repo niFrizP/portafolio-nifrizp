@@ -43,7 +43,7 @@ export default function ProjectsSection() {
         <div className="mt-8 flex justify-center">
           <button
             onClick={() => setShowAll((prev) => !prev)}
-            className="inline-flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition"
+            className="inline-flex items-center gap-3 rounded-xl border border-white/1 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition bg-blur-lg backdrop-blur-md"
           >
             {showAll ? (
               <>
