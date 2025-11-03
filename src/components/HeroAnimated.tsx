@@ -36,7 +36,7 @@ function HeroAnimated() {
                         Nicolás Friz Pereira
                     </h1>
                     <div className="mt-2 h-8 overflow-hidden">
-                        <div className="text-lg font-medium text-emerald-500 dark:text-emerald-400 inline-flex items-center gap-2 status-badge">
+                        <div className="text-lg font-medium text-emerald-500 dark:text-emerald-400 inline-flex items-center gap-2">
                             <span className="opacity-90"> </span>
                             <AnimatePresence mode="wait">
                                 <motion.span key={index} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{

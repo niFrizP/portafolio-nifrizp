@@ -31,12 +31,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm run build
+      - name: Install deps and build Next
+        env:
+          NEXT_PUBLIC_LOGO_DEV_TOKEN: ${{ secrets.LOGO_DEV_TOKEN }} 
+        run: |
+          npm ci
+          npm run build
       - run: |
           test -d out || echo "Warning: 'out' directory not found after build"
       - run: touch out/.nojekyll
-
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
