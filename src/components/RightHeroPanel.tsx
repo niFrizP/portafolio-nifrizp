@@ -53,7 +53,7 @@ export default function RightHeroPanel() {
 
                     {/* Logos (confianza) */}
                     <div className="mt-5">
-                        <p className="mb-2 text-xs uppercase tracking-wide theme-text">Experiencia con</p>
+                        <p className="mb-2 text-xs uppercase tracking-wide theme-text">He colaborado con:</p>
                         <div className="flex flex-wrap gap-2">
                             <BrandLogo company="IBM" domain="ibm.com" />
                             <BrandLogo company="TEQMED" domain="teqmed.cl" />
