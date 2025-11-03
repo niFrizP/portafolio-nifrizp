@@ -2,7 +2,7 @@ name: Build & Deploy (Next + LaTeX CV)
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
 
 permissions:
