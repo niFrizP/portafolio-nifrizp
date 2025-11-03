@@ -16,7 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 1) Compilar LaTeX a PDF (usa una acción mantenida para TeXLive)
       - name: Compile LaTeX (CV)
         uses: xu-cheng/latex-action@v3
         with:
@@ -24,22 +23,20 @@ jobs:
           working_directory: latex-cv
           latexmk_use_xelatex: true
 
-      # 2) Copiar el PDF generado a /public/cv/ para que el sitio lo sirva
       - name: Copy CV pdf into public
         run: |
           mkdir -p public/cv
-          # latex-action deja el pdf como latex-cv/main.pdf
           cp latex-cv/main.pdf public/cv/nicolas-friz.pdf
 
-      # 3) Build & export Next.js (estático para GitHub Pages)
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run build && npm run export
+      - run: npm run build
+      - run: |
+          test -d out || echo "Warning: 'out' directory not found after build"
       - run: touch out/.nojekyll
 
-      # 4) Subir artefacto a Pages
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

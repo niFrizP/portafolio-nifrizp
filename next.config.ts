@@ -1,10 +1,9 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === "production";
-const repo = "portafolio-nifrizp";
-
 const nextConfig: NextConfig = {
+  // Export estático para Next >=16
   output: "export",
+  // Recomiendo trailingSlash para GitHub Pages (URLs tipo /ruta/)
   trailingSlash: true,
   images: {
     remotePatterns: [
@@ -13,11 +12,9 @@ const nextConfig: NextConfig = {
     ],
     unoptimized: true,
   },
-  basePath: isProd ? `/${repo}` : "",
-  assetPrefix: isProd ? `/${repo}/` : "",
-  env: {
-    NEXT_PUBLIC_BASE_PATH: isProd ? `/${repo}` : "",
-  },
+  // Sitio de usuario: no usar basePath ni assetPrefix
+  basePath: "",
+  assetPrefix: "",
 };
 
 export default nextConfig;

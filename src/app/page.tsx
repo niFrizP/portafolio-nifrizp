@@ -186,10 +186,8 @@ export default function Page() {
               </a>
             </div>
           </object>
-        </div>
 
-        {/* Botón de descarga */}
-        <div className="mt-6">
+          {/* Botón de descarga */}
           <a
             href="/cv/CV_Nicolás_Friz.pdf"
             download

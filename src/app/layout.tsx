@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
+      {/* Rutas absolutas: sirven correctamente en sitio de usuario */}
       <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       <link rel="preload" as="image" href="/bg-base.jpg" />
       <body className="relative bg-transparent">
