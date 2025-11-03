@@ -1,33 +1,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Curriculum Nicolás Friz Pereira
-% Adaptado de plantilla DeveloperCV con fuente Helvetica
+% Adaptado de plantilla DeveloperCV con IBM Plex Sans
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[9pt]{developercv}
+
+% Usamos XeLaTeX/LuaLaTeX: fontspec para fuentes modernas
 \usepackage{fontspec}
-\setmainfont{Raleway}
 
-%----------------------------------------
-% Diseño y Fuentes
-%----------------------------------------
-\usepackage[T1]{fontenc}
-
-% Helvetica para cuerpo
-\usepackage[scaled=0.9]{helvet}
-\renewcommand\familydefault{\sfdefault}
-
-% Fontspec para IBM Plex (solo disponible con XeLaTeX/LuaLaTeX)
-\usepackage{fontspec}
-\setmainfont{IBM Plex Sans}
+% Definimos IBM Plex Sans como fuente principal (se instala en el workflow)
 \newfontfamily\ibmplex{IBM Plex Sans}[
   UprightFont    = *-Regular,
   BoldFont       = *-Bold,
   ItalicFont     = *-Italic,
   BoldItalicFont = *-BoldItalic,
-  Scale          = MatchLowercase
+  Scale          = MatchLowercase,
 ]
 
-% Colores
+% Hacemos que la familia por defecto sea la fuente sans definida
+\renewcommand\familydefault{\sfdefault}
+\setmainfont{IBM Plex Sans}
+
+% Codificación y colores
+\usepackage[T1]{fontenc}
 \usepackage{xcolor}
 \definecolor{headerbg}{HTML}{2E5F5A}
 \definecolor{headerfg}{HTML}{FFFFFF}
@@ -46,10 +41,10 @@
       \centering
       % Nombre en IBM Plex Sans Bold
       {\ibmplex\Huge\color{headerfg}\textbf{Nicolás Friz Pereira}}\\[4pt]
-      {\ibmplex\large\color{headerfg}Desarrollador de Software}\\[6pt]
+      {\ibmplex\large\color{headerfg}\textbf{Ingeniero Informático}}\\[1pt]
       {\small\color{headerfg}
         \href{mailto:ni.frizp@gmail.com}{ni.frizp@gmail.com} \quad $|$ \quad
-        Concepción, Biobío, Chile \quad $|$ \quad
+        Cauquenes, Maule, Chile \quad $|$ \quad
         \href{tel:+56933134466}{+56 9 3313 4466}
       }
       \vspace{1em}
@@ -72,24 +67,27 @@
 %----------------------------------------
 \cvsect{Sobre mi}
 
-Mi nombre es \textbf{Nicolás Friz Pereira}, soy desarrollador de software freelance apasionado en la tecnología. Titulado en Ingeniería en Informática por DuocUC, cuento con experiencia en desarrollo de aplicaciones web, aseguramiento de la calidad de software (QA) y optimización de procesos operativos. Me caracterizan el aprendizaje autodidacta, la responsabilidad y el enfoque en la mejora continua, así como la disposición para asumir nuevos retos y adquirir conocimientos a partir de ellos.
+Mi nombre es \textbf{Nicolás Friz Pereira}, soy Ingeniero Informático, cuento con experiencia en desarrollo de aplicaciones web, aseguramiento de la calidad de software (QA) y optimización de procesos operativos. Me caracterizan el aprendizaje autodidacta, la responsabilidad y el enfoque en la mejora continua, así como la disposición para asumir nuevos retos y adquirir conocimientos a partir de ellos, a su  con experiencia en armados y mantenimientos de computadoras,
 
 %----------------------------------------
 % Experiencia
 %----------------------------------------
 \cvsect{Experiencia}
 \begin{itemize}
-  \item \textbf{2024 -- 2025 | Analista QA (Programa Blue Journey) – | IBM Chile, Santiago.}
+  \item \textbf{febrero 2025 -- octubre 2025 | Desarrollador web y Asesoría en TI – | TEQMED SpA, Concepción.}
+  \\Desarrollo web (Laravel, PHP, JavaScript, TailwindCSS y MySQL). Desarrollo de Intranet y sistema de Tickets para servicio técnico y asesorías en informática.
+
+  \item \textbf{agosto 2024 -- febrero 2025 | Analista QA (Programa Blue Journey) – | IBM Chile, Santiago.}
   \\Ejecución de pruebas funcionales y de regresión bajo metodología Scrum. Reporte y documentación de errores. Definición de criterios de aceptación y métricas de calidad.
 
-  \item \textbf{2022 -- 2024 | Desarrollador FullStack y Especialista TI – | TEQMED SpA, Concepción.}
+  \item \textbf{agosto 2022 -- agosto 2024 | Desarrollador FullStack y Especialista TI – | TEQMED SpA, Concepción.}
   \\Desarrollo y mantenimiento de sistemas internos (PHP, MySQL y Bulma CSS). Generación de reportes y dashboards. Gestión de infraestructura tecnológica y soporte técnico.
 
-  \item \textbf{2022 -- 2024 | Líder de Taller de Impresión 3D – | CITT DuocUC, Concepción.}
-  \\Planificación y realización de talleres de diseño e impresión 3D.
+  \item \textbf{abril 2022 -- agosto 2024 | Líder de Taller de Impresión 3D – | CITT DuocUC, Concepción.}
+  \\Planificación y realización de talleres para estudiantes en diseño e impresión 3D.
 
-  \item \textbf{2019 | Asistente de Apoyo – | ABCDIN, Cauquenes.}
-  \\Apoyo logístico y atención al cliente durante campaña navideña.
+  \item \textbf{diciembre 2019 | Asistente de Apoyo – | ABCDIN, Cauquenes.}
+  \\Apoyo logístico y atención al cliente durante campaña navideña año 2019.
 \end{itemize}
 
 %----------------------------------------
@@ -102,6 +100,9 @@ Mi nombre es \textbf{Nicolás Friz Pereira}, soy desarrollador de software freel
 
   \item \textbf{2018 -- 2019 | Técnico en Administración Computacional especializado en Armado de Computadoras. }
   \\Instituto Conosur, Cauquenes, Región del Maule.
+
+    \item \textbf{2008 -- 2019 | Enseñanza Basica y Media Humanista cientifica. }
+  \\Liceo Antonio Varas, Cauquenes, Región del Maule.
 \end{itemize}
 
 %----------------------------------------
@@ -113,9 +114,10 @@ Mi nombre es \textbf{Nicolás Friz Pereira}, soy desarrollador de software freel
 \textbf{Habilidades Técnicas}
 \vspace{3pt}
 \begin{itemize}
-  \item \textbf {Lenguajes:} PHP, JavaScript/TypeScript, Python y LaTeX.
-  \item \textbf {Frameworks:} Laravel, Angular, Ionic y React.
-  \item \textbf {Bases de Datos:} MySQL, SQL Server y PL/SQL.
+  \item \textbf {Lenguajes:} PHP, JavaScript, Python y LaTeX.
+  \item \textbf {Frameworks:} Laravel, Angular, Ionic y NextJS.
+  \item \textbf {CMS:} WordPress.
+  \item \textbf {Bases de Datos:} MySQL, SQL Server y Oracle PL/SQL.
   \item \textbf {Frontend:} HTML, CSS, Sass, Tailwind CSS y Bulma CSS.
   \item \textbf {Multimedia:} Photoshop, Illustrator, Lightroom, Sony Vegas Pro, Premiere y DaVinci Resolve.
   \item \textbf {Hardware y TI:} Ensamblaje de PC, Impresión 3D y Soporte técnico.
@@ -126,11 +128,12 @@ Mi nombre es \textbf{Nicolás Friz Pereira}, soy desarrollador de software freel
 \textbf{Certificaciones y Logros}
 \begin{itemize}
   \item \textbf{2025:} IBM Z Day SE - Seguridad.
+  \item \textbf{2024:} IBM Agile Explorer, Quantum Conversations yㅤ 
+  ㅤWatsonX Essencials
   \item \textbf{2023:} Diseño e Impresión 3D - Full3D \& Creality.
-  \item \textbf{2022:} Principios de Diseño Digital en Adobe Photoshop  - Universidad Tecmilenio (México).
+  \item \textbf{2022:} {\href{https://www.credly.com/badges/06d78a0f-69f4-4093-b0bd-3b9f3b5f69cc/}{Principios de Diseño Digital en Adobe Photoshop  - Universidad Tecmilenio (México)}}
   \item \textbf{2022:} 1er Lugar, Innova Challenge - Universidad Tecmilenio (México). 
 \end{itemize}
 \end{minipage}
 
 \end{document}
--

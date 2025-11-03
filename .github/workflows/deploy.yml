@@ -16,6 +16,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Instalar IBM Plex Sans para que XeLaTeX encuentre BoldItalic
+      - name: Install IBM Plex Sans font
+        run: |
+          wget https://github.com/IBM/plex/releases/download/v6.4.2/TrueType.zip -O TrueType.zip
+          unzip TrueType.zip -d ibmplex
+          mkdir -p ~/.local/share/fonts
+          cp ibmplex/TrueType/IBM-Plex-Sans/*.ttf ~/.local/share/fonts/
+          fc-cache -fv
+
       # 1) Compilar LaTeX a PDF (usa una acción mantenida para TeXLive)
       - name: Compile LaTeX (CV)
         uses: xu-cheng/latex-action@v3
@@ -23,15 +32,11 @@ jobs:
           root_file: main.tex
           working_directory: latex-cv
           latexmk_use_xelatex: true
-          # Si tu clase requiere pdflatex en vez de xelatex, cambia a:
-          # latexmk_use_lualatex: false
-          # latexmk_use_xelatex: false
 
       # 2) Copiar el PDF generado a /public/cv/ para que el sitio lo sirva
       - name: Copy CV pdf into public
         run: |
           mkdir -p public/cv
-          # latex-action deja el pdf como latex-cv/main.pdf
           cp latex-cv/main.pdf public/cv/nicolas-friz.pdf
 
       # 3) Build & export Next.js (estático para GitHub Pages)
