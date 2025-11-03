@@ -55,9 +55,9 @@ export default function RightHeroPanel() {
                     <div className="mt-5">
                         <p className="mb-2 text-xs uppercase tracking-wide theme-text">Experiencia con</p>
                         <div className="flex flex-wrap gap-2">
-                            <p className="mb-2 text-xs uppercase tracking-wide theme-text"> <BrandLogo company="IBM" domain="ibm.com" /></p>
-                            <p> <BrandLogo company="TEQMED" domain="teqmed.cl" /></p>
-                            <p> <BrandLogo company="Duoc UC" domain="duoc.cl" /></p>
+                            <BrandLogo company="IBM" domain="ibm.com" />
+                            <BrandLogo company="TEQMED" domain="teqmed.cl" />
+                            <BrandLogo company="Duoc UC" domain="duoc.cl" />
                         </div>
                     </div>
                 </div>
