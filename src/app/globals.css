@@ -172,6 +172,22 @@ html {
   background-attachment: fixed;
 }
 
+/* iOS tweaks: evitar background-attachment:fixed y respetar safe-area */
+@supports (-webkit-touch-callout: none) {
+  #bg {
+    background-attachment: scroll !important;
+  }
+
+  .cv-page-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  #bg {
+    background-attachment: scroll !important;
+  }
+}
 
 @layer utilities {
 

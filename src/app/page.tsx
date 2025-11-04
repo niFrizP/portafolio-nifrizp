@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import ProjectsSection from "@/components/ProjectsSection";
 import { Mail, ChevronRight, Linkedin, Github } from "lucide-react";
 import CompanyLogo from "@/components/CompanyLogo";
@@ -29,6 +30,18 @@ function BrandLogo({ company, domain }: { company: string; domain: string }) {
 
 
 export default function Page() {
+  const pdfPath = "/cv/nicolas-friz.pdf";
+  const downloadPath = "/cv/CV_Nicolás_Friz.pdf";
+
+  // Detectar iOS en cliente (incluye iPad en Safari sobre mac con touch)
+  const [isIos, setIsIos] = useState(false);
+  useEffect(() => {
+    const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
+    const isIphoneIpod = /iPhone|iPod/.test(ua);
+    const isIpad = /iPad/.test(ua) || (navigator.platform === "MacIntel" && (navigator as any).maxTouchPoints > 1);
+    setIsIos(isIphoneIpod || isIpad);
+  }, []);
+
   return (
 
     <main className="min-h-screen relative text-foreground">
