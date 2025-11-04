@@ -3,15 +3,17 @@ name: Build & Deploy (Next + LaTeX CV)
 on:
   push:
     branches: [master]
+    # Evitar disparar por cambios únicamente en el PDF generado
+    paths-ignore:
+      - 'public/cv/**'
   workflow_dispatch:
 
-#-- Permissions for GitHub Pages ---
+# Permisos necesarios
 permissions:
-  contents: write        # necesario para commitear el PDF si cambia
+  contents: write
   pages: write
   id-token: write
 
-#-- Concurrency to avoid multiple deployments at the same time ---
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -54,7 +56,6 @@ jobs:
             git push origin HEAD:master
           fi
 
-      # --- Node / Next.js ---
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -87,6 +88,58 @@ jobs:
       name: github-pages
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Get repo info
+        run: echo "Repo: $GITHUB_REPOSITORY"
+
+      - name: Cancel in-progress Pages deployments (if any)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          repo="$GITHUB_REPOSITORY"
+          echo "Checking for in-progress Pages deployments in $repo..."
+          in_progress_ids=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/$repo/pages/deployments" | jq -r '.[] | select(.status == "in_progress") | .id')
+
+          if [ -z "$in_progress_ids" ]; then
+            echo "No in-progress Pages deployments found."
+          else
+            for id in $in_progress_ids; do
+              echo "Cancelling Pages deployment id: $id"
+              curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
+                "https://api.github.com/repos/$repo/pages/deployments/$id/cancel" | jq -C .
+            done
+            sleep 5
+          fi
+
+      - name: Deploy to GitHub Pages (with retries)
         id: deployment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          max_attempts=3
+          attempt=1
+          while [ $attempt -le $max_attempts ]; do
+            echo "Attempt $attempt to create a Pages deployment..."
+            # Usar action desde CLI via curl: creamos la deployment usando la API que usa actions/deploy-pages internamente
+            # Pero aquí usaremos la action oficial (si falla por in-progress, reintentamos)
+            if gh_release=$(gh api -X POST -H "Accept: application/vnd.github+json" /repos/${GITHUB_REPOSITORY}/pages/deployments -f artifact_id=$(jq -r '.[0].id' <<< "$(gh api /repos/${GITHUB_REPOSITORY}/actions/artifacts)")); then
+              echo "Deployment request sent successfully (via gh cli)."
+              break
+            else
+              echo "Deployment request failed or in-progress. Sleeping and retrying..."
+              sleep $(( attempt * 5 ))
+              attempt=$(( attempt + 1 ))
+            fi
+          done
+
+          if [ $attempt -gt $max_attempts ]; then
+            echo "All attempts to create a Pages deployment failed — failing job."
+            exit 1
+          fi
+
+      - name: Deploy to GitHub Pages (action fallback)
+        if: always()
+        id: deployment_action
         uses: actions/deploy-pages@v4
