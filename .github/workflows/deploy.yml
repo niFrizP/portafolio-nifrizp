@@ -3,38 +3,25 @@ name: Build & Deploy (Next + LaTeX CV)
 on:
   push:
     branches: [master]
-    # Evitar disparar workflow por cambios solo en PDF
-    paths-ignore:
-      - 'public/cv/**'
   workflow_dispatch:
-
-# Permisos necesarios
+#-- Permissions for GitHub Pages ---
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
-
-# Evita que múltiples ejecuciones se pisen entre sí
+#-- Concurrency to avoid multiple deployments at the same time ---
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
+#-- Build Job ---
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checkout
       - uses: actions/checkout@v4
-
-      # Debug: repo info
-      - name: Show repo info
-        run: echo "Repo: $GITHUB_REPOSITORY"
-
-      # Configurar GitHub Pages
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-
-      # Compilar LaTeX CV
       - name: Compile LaTeX (CV)
         uses: xu-cheng/latex-action@v3
         with:
@@ -42,62 +29,43 @@ jobs:
           working_directory: latex-cv
           latexmk_use_xelatex: true
 
-      # Copiar PDF generado a public/cv
       - name: Copy CV pdf into public
         run: |
           mkdir -p public/cv
           cp latex-cv/main.pdf public/cv/nicolas-friz.pdf
 
-      # Commit del PDF si cambia
-      - name: Commit PDF if changed
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/cv/nicolas-friz.pdf
-          if git diff --staged --quiet; then
-            echo "No changes to PDF — skipping commit"
-          else
-            git commit -m "chore: update CV PDF [ci skip]" || true
-            git push origin HEAD:master
-
-      # Node / Next.js
+      # --- Node / Next.js ---
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies
+      - name: Install deps
         run: npm ci
 
-      - name: Build Next.js (static export)
+      - name: Build Next (static export)
         env:
           NEXT_PUBLIC_LOGO_DEV_PK: ${{ secrets.LOGO_DEV_TOKEN }}
           NEXT_PUBLIC_CLARITY_ID: ${{ secrets.NEXT_PUBLIC_CLARITY_ID }}
         run: npm run build
 
-      # Verificar export
       - name: Verify export output
         run: |
           test -d out || (echo "ERROR: 'out' directory not found after build" && exit 1)
           touch out/.nojekyll
           ls -la out
 
-      # Subir artifact
       - name: Upload artifact to Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: out
-
   deploy:
     needs: build
     environment:
       name: github-pages
     runs-on: ubuntu-latest
     steps:
-      # Desplegar a GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
