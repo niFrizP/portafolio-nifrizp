@@ -13,7 +13,7 @@ type Props = { project: Project };
 
 export default function ProjectCard({ project }: Props) {
   return (
-    <Card className="group overflow-hidden border-white/10 bg-brand-glass/30 backdrop-blur-xl transition hover:translate-y-[-2px] hover:bg-brand-glass/40">
+    <Card className="group overflow-hidden border-white/10 bg-brand-glass/30 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-brand-glass/40">
       <CardHeader className="space-y-1">
         <CardTitle className="text-base md:text-lg">{project.title}</CardTitle>
         {/* año proyectos */}

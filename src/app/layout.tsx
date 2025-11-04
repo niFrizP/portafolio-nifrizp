@@ -47,15 +47,45 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="preload" as="image" href="/bg-base.jpg" />
         {clarityId ? (
           <Script id="ms-clarity" strategy="afterInteractive">
-            {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "${clarityId}");`}
+            {`
+              (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "${clarityId}");
+            `}
           </Script>
         ) : null}
+        <Script
+          id="gtm"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TG8JDLC9');`,
+          }}
+        />
+        <meta name="google-site-verification" content="TwICpiGQi1WwokZsvzzoJ0dXi9ZXJYUSoL2La63J528" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="preload" as="image" href="/bg-base.jpg" />
       </head>
       <body className="relative bg-transparent">
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-TG8JDLC9"
+            height="0"
+            width="0"
+            className="hidden"
+            aria-hidden="true"
+            title="Google Tag Manager"
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
         {/* ThemeProvider envuelve fondos y contenido para que el tema se aplique coherentemente */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {/* Fondos detrás del contenido */}

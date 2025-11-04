@@ -28,7 +28,6 @@ function BrandLogo({ company, domain }: { company: string; domain: string }) {
   );
 }
 
-
 export default function Page() {
   const pdfPath = "/cv/nicolas-friz.pdf";
   const downloadPath = "/cv/CV_Nicolás_Friz.pdf";
