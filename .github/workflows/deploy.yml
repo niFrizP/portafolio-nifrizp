@@ -3,7 +3,7 @@ name: Build & Deploy (Next + LaTeX CV)
 on:
   push:
     branches: [master]
-    # Evitar disparar por cambios únicamente en el PDF generado
+    # Evitar disparar workflow por cambios solo en PDF
     paths-ignore:
       - 'public/cv/**'
   workflow_dispatch:
@@ -14,6 +14,7 @@ permissions:
   pages: write
   id-token: write
 
+# Evita que múltiples ejecuciones se pisen entre sí
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -22,14 +23,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      # Checkout
+      - uses: actions/checkout@v4
 
+      # Debug: repo info
+      - name: Show repo info
+        run: echo "Repo: $GITHUB_REPOSITORY"
+
+      # Configurar GitHub Pages
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
+      # Compilar LaTeX CV
       - name: Compile LaTeX (CV)
         uses: xu-cheng/latex-action@v3
         with:
@@ -37,11 +42,13 @@ jobs:
           working_directory: latex-cv
           latexmk_use_xelatex: true
 
+      # Copiar PDF generado a public/cv
       - name: Copy CV pdf into public
         run: |
           mkdir -p public/cv
           cp latex-cv/main.pdf public/cv/nicolas-friz.pdf
 
+      # Commit del PDF si cambia
       - name: Commit PDF if changed
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -50,33 +57,35 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/cv/nicolas-friz.pdf
           if git diff --staged --quiet; then
-            echo "No changes to PDF — skip commit"
+            echo "No changes to PDF — skipping commit"
           else
             git commit -m "chore: update CV PDF [ci skip]" || true
             git push origin HEAD:master
-          fi
 
+      # Node / Next.js
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      - name: Install deps
+      - name: Install dependencies
         run: npm ci
 
-      - name: Build Next (static export)
+      - name: Build Next.js (static export)
         env:
           NEXT_PUBLIC_LOGO_DEV_PK: ${{ secrets.LOGO_DEV_TOKEN }}
           NEXT_PUBLIC_CLARITY_ID: ${{ secrets.NEXT_PUBLIC_CLARITY_ID }}
         run: npm run build
 
+      # Verificar export
       - name: Verify export output
         run: |
           test -d out || (echo "ERROR: 'out' directory not found after build" && exit 1)
           touch out/.nojekyll
           ls -la out
 
+      # Subir artifact
       - name: Upload artifact to Pages
         uses: actions/upload-pages-artifact@v3
         with:
@@ -88,58 +97,7 @@ jobs:
       name: github-pages
     runs-on: ubuntu-latest
     steps:
-      - name: Get repo info
-        run: echo "Repo: $GITHUB_REPOSITORY"
-
-      - name: Cancel in-progress Pages deployments (if any)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -e
-          repo="$GITHUB_REPOSITORY"
-          echo "Checking for in-progress Pages deployments in $repo..."
-          in_progress_ids=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/$repo/pages/deployments" | jq -r '.[] | select(.status == "in_progress") | .id')
-
-          if [ -z "$in_progress_ids" ]; then
-            echo "No in-progress Pages deployments found."
-          else
-            for id in $in_progress_ids; do
-              echo "Cancelling Pages deployment id: $id"
-              curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
-                "https://api.github.com/repos/$repo/pages/deployments/$id/cancel" | jq -C .
-            done
-            sleep 5
-          fi
-
-      - name: Deploy to GitHub Pages (with retries)
+      # Desplegar a GitHub Pages
+      - name: Deploy to GitHub Pages
         id: deployment
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -e
-          max_attempts=3
-          attempt=1
-          while [ $attempt -le $max_attempts ]; do
-            echo "Attempt $attempt to create a Pages deployment..."
-            # Usar action desde CLI via curl: creamos la deployment usando la API que usa actions/deploy-pages internamente
-            # Pero aquí usaremos la action oficial (si falla por in-progress, reintentamos)
-            if gh_release=$(gh api -X POST -H "Accept: application/vnd.github+json" /repos/${GITHUB_REPOSITORY}/pages/deployments -f artifact_id=$(jq -r '.[0].id' <<< "$(gh api /repos/${GITHUB_REPOSITORY}/actions/artifacts)")); then
-              echo "Deployment request sent successfully (via gh cli)."
-              break
-            else
-              echo "Deployment request failed or in-progress. Sleeping and retrying..."
-              sleep $(( attempt * 5 ))
-              attempt=$(( attempt + 1 ))
-            fi
-          done
-
-          if [ $attempt -gt $max_attempts ]; then
-            echo "All attempts to create a Pages deployment failed — failing job."
-            exit 1
-          fi
-
-      - name: Deploy to GitHub Pages (action fallback)
-        if: always()
-        id: deployment_action
         uses: actions/deploy-pages@v4
