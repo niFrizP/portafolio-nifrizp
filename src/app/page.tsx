@@ -200,7 +200,7 @@ export default function Page() {
           Aquí puedes visualizar mi CV o descargarlo en PDF.
         </p>
         {/* Viewer embebido (mismo PDF que descargas) */}
-        <div className="mt-6 rounded-xl border overflow-hidden shadow-xl glass-card">
+        <div className="mt-6 rounded-xl border overflow-hidden shadow-2xl backdrop-blur-xl bg-white/70 dark:bg-gray-800/60">
           <object
             data="/cv/nicolas-friz.pdf"
             type="application/pdf"
@@ -223,7 +223,9 @@ export default function Page() {
           <a
             href="/cv/CV_Nicolás_Friz.pdf"
             download
-            className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 bg-red-600 hover:bg-red-500 text-white m-6"
+            className="inline-flex items-center gap-2 rounded-xl border border-white/20 
+             backdrop-blur-xl bg-red-600/60 hover:bg-red-500/60 
+             text-white px-4 py-2 m-6 transition duration-300"
           >
             Descargar CV
           </a>
