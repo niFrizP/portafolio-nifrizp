@@ -60,7 +60,7 @@ export default function Page() {
             <div className="relative mx-auto h-64 w-64 md:h-80 md:w-80 overflow-hidden glass-card p-2 bg-blurred-card rounded-2xl border theme-border backdrop-blur-3xl">
               <div className="absolute inset-2 rounded-2xl bg-linear-to-br from-white/10 to-transparent grid place-items-center">
                 <span className="text-sm theme-text">
-                  <Image src="thumbs/niko-IA.jpg" alt="Nicolás Friz Pereira" fill className="object-cover rounded-2xl" />
+                  <Image src="thumbs/me.jpg" alt="Nicolás Friz Pereira" fill className="object-cover rounded-2xl" />
                 </span>
               </div>
             </div>
